@@ -1,0 +1,26 @@
+version: '1.0'
+services:
+  db:
+    image: mongo:${MONGO_VERSION}
+    container_name: db
+    networks:
+      - net_A
+    ports:
+    - ${MONGO_PORT}:27017
+    volumes:
+      - mongo_data:/data/db
+  server:
+    build: 
+      dockerfile: ./Dockerfile
+    container_name: server
+    networks:
+      - net_A
+    ports:
+      - "3003:3003"
+    depends_on:
+      - db
+networks:
+  net_A:
+    external: false
+volumes:
+  mongo_data:

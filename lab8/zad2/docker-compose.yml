@@ -1,0 +1,15 @@
+version: '1'
+services:
+  redis:
+    container_name: redis
+    image: redis
+    ports:
+      - "6379:637"
+  app:
+    container_name: express_api
+    build: 
+      dockerfile: ./Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - redis
